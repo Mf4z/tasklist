@@ -18,6 +18,10 @@ form.addEventListener('submit',addTask);
 
 //Remove task even 
 taskList.addEventListener('click',removeTask);
+
+//Clear tasks
+clearBtn.addEventListener('click',clearTasks);
+
 }
 
 //Add task
@@ -62,7 +66,18 @@ if(e.target.parentElement.classList.contains('delete-item') )
 {
     if(confirm('Are You Sure?'))
     e.target.parentElement.parentElement.remove();
-    
+
 }
     console.log(e.target);
+}
+
+//Clear tasks
+function clearTasks(e){
+    //Way one of clearing
+    taskList.innerHTML = '';
+
+    //Faster way 
+    while(taskList.firstChild){
+        taskList.removeChild(taskList.firstChild);
+    }
 }
