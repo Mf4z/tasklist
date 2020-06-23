@@ -11,6 +11,9 @@ const taskInput = document.querySelector('#task');
 
 loadEventListeners();
 
+//DOM event load
+document.addEventListener('DOMContentLoaded',getTasks);
+
 //Load all even listeners declaration
 function loadEventListeners(){
     //Add task even 
@@ -25,6 +28,46 @@ clearBtn.addEventListener('click',clearTasks);
 //Filter
 filter.addEventListener('keyup',filterTasks);
 
+}
+
+
+//Get tasks from LS
+function getTasks(){
+    let tasks;
+    if(localStorage.getItem('tasks') === null){
+        tasks = [];
+    }
+    else{
+        tasks = JSON.parse(localStorage.getItem('tasks'));
+    }
+
+    tasks.forEach(function(task){
+
+        //Create li element 
+    const li = document.createElement('li');
+    
+    //Add classname 
+    li.className = 'collection-item';
+
+    //Create text node and append to li
+    li.appendChild(document.createTextNode(task));
+
+    //Create new link element
+    const link = document.createElement('a');
+    // Add class
+    link.className = 'delete-item secondary-content';
+    //Add  icon html
+    link.innerHTML='<i class="fa fa-remove"></i>';
+
+    //Append the link to li
+    li.appendChild(link);
+
+    // Append li to ul
+    taskList.appendChild(li);
+
+
+    });
+    localStorage.setItem('tasks',JSON.stringify(tasks));
 }
 
 //Add task
